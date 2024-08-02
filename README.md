@@ -4,7 +4,7 @@
 
 This repository contains a Python script that prints "Hello, World!" to the console and an associated test suite.
 
-The pipeline for the project is made up of a few steps:
+The pipeline for the project is made up of a few steps that:
 
 - Checkout the code
 - Install dependencies
