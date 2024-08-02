@@ -1,11 +1,6 @@
 pipeline {
     agent any
     stages {
-        stage('Checkout') {
-            steps {
-                sh 'git clone https://github.com/cicdsummerschool/session-2.git .'
-            }
-        }
         stage('Set up Python') {
             steps {
                 sh '''
