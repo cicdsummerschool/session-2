@@ -14,41 +14,43 @@ object Build : BuildType({
     vcs {
         root(HttpsGithubComCicdsummerschoolSession2gitRefsHeadsMain)
     }
-steps {
-    script {
-        name = "Install dependencies"
-        id = "Install_dependencies"
-        scriptContent = """
-            python -m pip install --upgrade pip
-            pip install black flake8
-        """.trimIndent()
-    }
-    script {
-        name = "Check formatting with black"
-        id = "Install_dependencies"
-        scriptContent = """
-            black --verbose --check ./*.py
-        """.trimIndent()
-    }
-    script {
-        name = "Lint with flake8"
-        id = "Install_dependencies"
-        scriptContent = """
-            flake8 --verbose ./*.py
-        """.trimIndent()
-    }
-    python {
-        name = "Run Pytest"
-        id = "python_runner_0"
-        command = pytest {
+
+    steps {
+        script {
+            name = "Install dependencies"
+            id = "Install_dependencies"
+            scriptContent = """
+                python -m pip install --upgrade pip
+                pip install black flake8
+            """.trimIndent()
+        }
+        script {
+            name = "Check formatting with black"
+            id = "Install_dependencies"
+            scriptContent = """
+                black --verbose --check ./*.py
+            """.trimIndent()
+        }
+        script {
+            name = "Lint with flake8"
+            id = "Install_dependencies"
+            scriptContent = """
+                flake8 --verbose ./*.py
+            """.trimIndent()
+        }
+        python {
+            name = "Run Pytest"
+            id = "python_runner_0"
+            command = pytest {
+            }
+        }
+        script {
+            name = "Create and deliver the artifact"
+            id = "Create_and_deliver_the_artifact"
+            scriptContent = "zip zip main-${'$'}{BUILD_VCS_NUMBER}.zip main.py"
         }
     }
-    script {
-        name = "Create and deliver the artifact"
-        id = "Create_and_deliver_the_artifact"
-        scriptContent = "zip zip main-${'$'}{BUILD_VCS_NUMBER}.zip main.py"
-    }
-}
+
     triggers {
         vcs {
         }
