@@ -1,0 +1,54 @@
+package _Self.buildTypes
+
+import jetbrains.buildServer.configs.kotlin.*
+import jetbrains.buildServer.configs.kotlin.buildFeatures.perfmon
+import jetbrains.buildServer.configs.kotlin.buildSteps.python
+import jetbrains.buildServer.configs.kotlin.buildSteps.script
+import jetbrains.buildServer.configs.kotlin.triggers.vcs
+
+object Build : BuildType({
+    name = "Build"
+
+    artifactRules = "*.zip"
+
+    vcs {
+        root(HttpsGithubComCicdsummerschoolSession2gitRefsHeadsMain)
+    }
+steps {
+    script {
+        name = "Install dependencies"
+        id = "Install_dependencies"
+        scriptContent = """
+            python -m pip install --upgrade pip
+            pip install black flake8
+        """.trimIndent()
+    }
+    python {
+        name = "Run Pytest"
+        id = "python_runner"
+        command = pytest {
+        }
+    }
+    python {
+        name = "Run the Function"
+        id = "python_runner_1"
+        command = file {
+            filename = "main.py"
+        }
+    }
+    script {
+        name = "Create and deliver the artifact"
+        id = "Create_and_deliver_the_artifact"
+        scriptContent = "zip zip main-${'$'}{BUILD_VCS_NUMBER}.zip main.py"
+    }
+}
+    triggers {
+        vcs {
+        }
+    }
+
+    features {
+        perfmon {
+        }
+    }
+})
