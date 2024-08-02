@@ -23,17 +23,24 @@ steps {
             pip install black flake8
         """.trimIndent()
     }
-    python {
-        name = "Run Pytest"
-        id = "python_runner"
-        command = pytest {
-        }
+    script {
+        name = "Check formatting with black"
+        id = "Install_dependencies"
+        scriptContent = """
+            black --verbose --check ./*.py
+        """.trimIndent()
+    }
+    script {
+        name = "Lint with flake8"
+        id = "Install_dependencies"
+        scriptContent = """
+            flake8 --verbose ./*.py
+        """.trimIndent()
     }
     python {
-        name = "Run the Function"
-        id = "python_runner_1"
-        command = file {
-            filename = "main.py"
+        name = "Run Pytest"
+        id = "python_runner_0"
+        command = pytest {
         }
     }
     script {
