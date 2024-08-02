@@ -16,7 +16,7 @@ The pipeline has been implemented in three different CI/CD frameworks:
 
 - [GitHub Actions (YAML)](./.github/workflows/python-app.yml)
 - [Jenkins (Groovy)](./Jenkinsfile)
-- [TeamCity (Kotlin)](./.teamcity/teamcity.kts)
+- [TeamCity (Kotlin)](./.teamcity/settings.kts)
 
 **Compare the configurations of the three frameworks to identify similarities and differences.**
 
@@ -24,7 +24,7 @@ The pipeline has been implemented in three different CI/CD frameworks:
 
 - [GitHub Actions Configuration](.github/workflows/python-app.yml)
 
-```
+```yaml
 name: Integration and Delivery Workflow
 
 on:
@@ -83,7 +83,7 @@ jobs:
 
 - [Jenkins Configuration](Jenkinsfile)
 
-```
+```groovy
 pipeline {
     agent any
     stages {
@@ -150,9 +150,9 @@ pipeline {
 
 ## TeamCity
 
-- [TeamCity Configuration](.teamcity/teamcity.kts)
+- [TeamCity Configuration](./.teamcity/settings.kts)
 
-```
+```kotlin
 package _Self.buildTypes
 
 import jetbrains.buildServer.configs.kotlin.*
