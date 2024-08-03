@@ -202,7 +202,7 @@ object Build : BuildType({
         script {
             name = "Create and deliver the artifact"
             id = "Create_and_deliver_the_artifact"
-            scriptContent = "zip zip main-${'$'}{BUILD_VCS_NUMBER}.zip main.py"
+            scriptContent = "zip main-${'$'}{BUILD_VCS_NUMBER}.zip main.py"
         }
     }
 
